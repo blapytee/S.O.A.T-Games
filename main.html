@@ -49,10 +49,25 @@
       border-radius: 10px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+      margin-top: 10px;
     }
 
     .button:hover {
       background-color: #0056b3;
+    }
+
+    .logout-link {
+      margin-top: 15px;
+      display: block;
+      color: #00d9ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .logout-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -60,8 +75,9 @@
   <div class="main-container">
     <h1 class="heading">Welcome to S.O.A.T!</h1>
     <p id="user-email">Loading...</p>
-  <a href="LogIn.html" style="color: #00d9ff; text-decoration: none;">Create one</a>
-    <button id="gamepage" class="button"class="button" style="margin-top: 10px;">Continue to GamePage</button>
+    
+    <button id="gamepage" class="button">Continue to GamePage</button>
+    <a href="#" id="logout-link" class="logout-link">Logout</a>
   </div>
 
   <script type="module">
@@ -71,33 +87,3 @@
       onAuthStateChanged,
       signOut
     } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDelWVPVE8l6Iv5I3hJC-jZuuziaKOjwiE",
-      authDomain: "soat-games-signup-and-login.firebaseapp.com",
-      projectId: "soat-games-signup-and-login",
-      storageBucket: "soat-games-signup-and-login.firebasestorage.app",
-      messagingSenderId: "396129769990",
-      appId: "1:396129769990:web:d1d09b797ba49701f98187",
-      measurementId: "G-RGCCL7ZCN1"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        document.getElementById("user-email").innerText = `Logged in as: ${user.email}`;
-      } else {
-        window.location.href = "login.html";
-      }
-    });
-
-    document.getElementById("logout").addEventListener("click", () => {
-      signOut(auth).then(() => {
-        window.location.href = "login.html";
-      });
-    });
-  </script>
-</body>
-</html>
