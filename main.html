@@ -93,7 +93,7 @@
       apiKey: "AIzaSyDelWVPVE8l6Iv5I3hJC-jZuuziaKOjwiE",
       authDomain: "soat-games-signup-and-login.firebaseapp.com",
       projectId: "soat-games-signup-and-login",
-      storageBucket: "soat-games-signup-and-login.firebasestorage.app",
+      storageBucket: "soat-games-signup-and-login.appspot.com", // ✅ fixed here
       messagingSenderId: "396129769990",
       appId: "1:396129769990:web:d1d09b797ba49701f98187",
       measurementId: "G-RGCCL7ZCN1"
@@ -102,7 +102,7 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Show email if logged in, else redirect to login
+    // ✅ Fix: add backticks for template string
     onAuthStateChanged(auth, (user) => {
       if (user) {
         document.getElementById("user-email").innerText = `Logged in as: ${user.email}`;
@@ -111,16 +111,18 @@
       }
     });
 
-    // Go to gamepage
+    // ✅ Go to game page
     document.getElementById("gamepage").addEventListener("click", () => {
       window.location.href = "gamepage.html";
     });
 
-    // Logout and redirect to login page
+    // ✅ Logout and go to login
     document.getElementById("logout-link").addEventListener("click", (e) => {
       e.preventDefault();
       signOut(auth).then(() => {
         window.location.href = "LogIn.html";
+      }).catch((error) => {
+        console.error("Logout failed:", error);
       });
     });
   </script>
