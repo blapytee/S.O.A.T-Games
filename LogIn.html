@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>S.O.A.T - Log In</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="main-container">
+    <h1 class="heading">Log In to S.O.A.T</h1>
+    <p>Choose your login method:</p>
+
+    <button id="google-login" class="button">Log In with Google</button>
+    <p>OR</p>
+
+    <form id="login-form" class="form">
+      <input type="email" id="email" placeholder="Your Gmail" required class="input-field" />
+      <input type="password" id="password" placeholder="Password" required class="input-field" />
+      <button type="submit" class="button">Log In with Gmail</button>
+    </form>
+
+    <p style="margin-top: 20px; font-size: 14px;">
+  Don't have an account?
+  <a href="SignUp.html" style="color: #007bff; text-decoration: none;">Create one</a>
+</p>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDelWVPVE8l6Iv5I3hJC-jZuuziaKOjwiE",
+      authDomain: "soat-games-signup-and-login.firebaseapp.com",
+      projectId: "soat-games-signup-and-login",
+      storageBucket: "soat-games-signup-and-login.firebasestorage.app",
+      messagingSenderId: "396129769990",
+      appId: "1:396129769990:web:d1d09b797ba49701f98187",
+      measurementId: "G-RGCCL7ZCN1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    document.getElementById("google-login").addEventListener("click", () => {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          alert("Logged in as: " + result.user.email);
+          window.location.href = "main.html";
+        })
+        .catch((error) => {
+          alert("Google login failed:\n" + error.message);
+        });
+    });
+
+    document.getElementById("login-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("Logged in: " + userCredential.user.email);
+          window.location.href = "main.html";
+        })
+        .catch((error) => {
+          alert("Login failed:\n" + error.message);
+        });
+    });
+  </script>
+</body>
+</html>

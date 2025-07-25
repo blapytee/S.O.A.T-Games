@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Skip Login Confirmation</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #3049ff, #d23fef, #ff6f00);
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: rgba(50, 50, 50, 0.85);
+      padding: 30px 40px;
+      border-radius: 20px;
+      max-width: 400px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #ffb347; /* warm highlight */
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      line-height: 1.4;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-around;
+      gap: 15px;
+    }
+
+    .btn {
+      background-color: #007bff;
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      flex: 1;
+      user-select: none;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .btn.return {
+      background-color: #6c757d;
+    }
+
+    .btn.return:hover {
+      background-color: #565e64;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Skip Login?</h2>
+    <h2>Progress will not be saved without a S.O.A.T Acccount</h2>
+    <a href="skipLogin.html" class="button">Skip Login</a>
+    <div class="btn-group">
+      <a href="gamepage.html" class="btn proceed">Proceed</a>
+      <a href="LogIn.html" class="btn return">Return to Login</a>
+    </div>
+  </div>
+</body>
+</html>
