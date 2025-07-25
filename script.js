@@ -48,3 +48,10 @@ document.getElementById('exit-btn').addEventListener('click', function () {
     window.location.href = "gamepage.html"; // go back to game selection
   }
 });
+document.getElementById("retryButton").addEventListener("click", () => {
+  location.reload(); // Reloads the page to restart the game
+});
+
+document.getElementById("exitButton").addEventListener("click", () => {
+  window.location.href = "gamepage.html"; // Redirects to game page
+});
