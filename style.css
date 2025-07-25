@@ -1,4 +1,8 @@
 /* ========== BACKGROUND + WALLPAPER ========== */
+html {
+    background: image(url('SOAT Games Background'));
+}
+
 body {
     margin: 0;
     padding: 0;
