@@ -107,7 +107,7 @@
       if (user) {
         document.getElementById("user-email").innerText = `Logged in as: ${user.email}`;
       } else {
-        window.location.href = "login.html";
+        window.location.href = "LogIn.html";
       }
     });
 
@@ -120,7 +120,7 @@
     document.getElementById("logout-link").addEventListener("click", (e) => {
       e.preventDefault();
       signOut(auth).then(() => {
-        window.location.href = "login.html";
+        window.location.href = "LogIn.html";
       });
     });
   </script>
