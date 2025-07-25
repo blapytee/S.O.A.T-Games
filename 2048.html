@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>2048 Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #faf8ef;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #game {
+      width: 400px;
+      height: 400px;
+      background: #bbada0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 10px;
+      padding: 10px;
+      box-shadow: 0 0 10px #333;
+    }
+    .tile {
+      background: #cdc1b4;
+      font-size: 2rem;
+      color: #776e65;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      height: 90px;
+    }
+    .tile[data-value="0"] { background: #cdc1b4; color: transparent; }
+    .tile[data-value="2"] { background: #eee4da; }
+    .tile[data-value="4"] { background: #ede0c8; }
+    .tile[data-value="8"] { background: #f2b179; color: white; }
+    .tile[data-value="16"] { background: #f59563; color: white; }
+    .tile[data-value="32"] { background: #f67c5f; color: white; }
+    .tile[data-value="64"] { background: #f65e3b; color: white; }
+    .tile[data-value="128"] { background: #edcf72; color: white; }
+    .tile[data-value="256"] { background: #edcc61; color: white; }
+    .tile[data-value="512"] { background: #edc850; color: white; }
+    .tile[data-value="1024"] { background: #edc53f; color: white; }
+    .tile[data-value="2048"] { background: #edc22e; color: white; }
+  </style>
+</head>
+<body>
+  <div id="game"></div>
+
+  <script>
+    const grid = [];
+    const size = 4;
+    const game = document.getElementById("game");
+
+    function drawGrid() {
+      game.innerHTML = '';
+      grid.flat().forEach(cell => {
+        const tile = document.createElement("div");
+        tile.className = "tile";
+        tile.dataset.value = cell;
+        tile.textContent = cell !== 0 ? cell : '';
+        game.appendChild(tile);
+      });
+    }
+
+    function init() {
+      for (let i = 0; i < size; i++) {
+        grid[i] = [];
+        for (let j = 0; j < size; j++) {
+          grid[i][j] = 0;
+        }
+      }
+      addRandom();
+      addRandom();
+      drawGrid();
+    }
+
+    function addRandom() {
+      const empty = [];
+      for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+          if (grid[i][j] === 0) empty.push([i, j]);
+        }
+      }
+      if (empty.length === 0) return;
+      const [i, j] = empty[Math.floor(Math.random() * empty.length)];
+      grid[i][j] = Math.random() > 0.9 ? 4 : 2;
+    }
+
+    function slide(row) {
+      row = row.filter(val => val);
+      for (let i = 0; i < row.length - 1; i++) {
+        if (row[i] === row[i + 1]) {
+          row[i] *= 2;
+          row[i + 1] = 0;
+        }
+      }
+      return row.filter(val => val).concat(Array(size - row.filter(val => val).length).fill(0));
+    }
+
+    function rotateLeft(matrix) {
+      const result = matrix.map((_, i) => matrix.map(row => row[i]));
+      return result.reverse();
+    }
+
+    function rotateRight(matrix) {
+      const result = matrix.map((_, i) => matrix.map(row => row[i]).reverse());
+      return result;
+    }
+
+    function moveLeft() {
+      let moved = false;
+      for (let i = 0; i < size; i++) {
+        const newRow = slide(grid[i]);
+        if (grid[i].join() !== newRow.join()) moved = true;
+        grid[i] = newRow;
+      }
+      return moved;
+    }
+
+    function move(direction) {
+      let rotated = grid;
+      if (direction === 'up') rotated = rotateLeft(grid);
+      if (direction === 'right') rotated = grid.map(row => row.reverse());
+      if (direction === 'down') rotated = rotateRight(grid);
+
+      let moved = false;
+      for (let i = 0; i < size; i++) {
+        const newRow = slide(rotated[i]);
+        if (rotated[i].join() !== newRow.join()) moved = true;
+        rotated[i] = newRow;
+      }
+
+      if (direction === 'up') grid.splice(0, size, ...rotateRight(rotated));
+      if (direction === 'right') grid.splice(0, size, ...rotated.map(row => row.reverse()));
+      if (direction === 'down') grid.splice(0, size, ...rotateLeft(rotated));
+
+      return moved;
+    }
+
+    document.addEventListener("keydown", e => {
+      let moved = false;
+      if (e.key === "ArrowLeft") moved = moveLeft();
+      else if (e.key === "ArrowRight") moved = move("right");
+      else if (e.key === "ArrowUp") moved = move("up");
+      else if (e.key === "ArrowDown") moved = move("down");
+
+      if (moved) {
+        addRandom();
+        drawGrid();
+      }
+    });
+
+    init();
+  </script>
+</body>
+</html>
