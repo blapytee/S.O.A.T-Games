@@ -9,7 +9,6 @@
       background: #faf8ef;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
@@ -24,6 +23,7 @@
       grid-gap: 10px;
       padding: 10px;
       box-shadow: 0 0 10px #333;
+      margin-top: 40px;
     }
 
     .tile {
@@ -50,37 +50,38 @@
     .tile[data-value="1024"] { background: #edc53f; color: white; }
     .tile[data-value="2048"] { background: #edc22e; color: white; }
 
-    .button-container {
+    .buttons {
       margin-top: 20px;
     }
 
-    button {
+    .buttons button {
+      margin: 0 10px;
       padding: 10px 20px;
-      margin: 5px;
       font-size: 16px;
-      background-color: #776e65;
+      background-color: #8f7a66;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 5px;
       cursor: pointer;
     }
 
-    button:hover {
-      background-color: #5e5245;
+    .buttons button:hover {
+      background-color: #776e65;
     }
   </style>
 </head>
 <body>
-  <div id="game"></div>
 
-  <div class="button-container">
+  <div class="buttons">
     <button id="retryButton">Retry</button>
     <button id="exitButton">Exit</button>
   </div>
 
+  <div id="game"></div>
+
   <script>
-    const grid = [];
     const size = 4;
+    let grid = [];
     const game = document.getElementById("game");
 
     function drawGrid() {
@@ -95,6 +96,7 @@
     }
 
     function init() {
+      grid = [];
       for (let i = 0; i < size; i++) {
         grid[i] = [];
         for (let j = 0; j < size; j++) {
@@ -130,13 +132,11 @@
     }
 
     function rotateLeft(matrix) {
-      const result = matrix.map((_, i) => matrix.map(row => row[i]));
-      return result.reverse();
+      return matrix[0].map((_, i) => matrix.map(row => row[i])).reverse();
     }
 
     function rotateRight(matrix) {
-      const result = matrix.map((_, i) => matrix.map(row => row[i]).reverse());
-      return result;
+      return matrix[0].map((_, i) => matrix.map(row => row[i]).reverse());
     }
 
     function moveLeft() {
@@ -152,7 +152,7 @@
     function move(direction) {
       let rotated = grid;
       if (direction === 'up') rotated = rotateLeft(grid);
-      if (direction === 'right') rotated = grid.map(row => row.reverse());
+      if (direction === 'right') rotated = grid.map(row => row.slice().reverse());
       if (direction === 'down') rotated = rotateRight(grid);
 
       let moved = false;
@@ -162,9 +162,9 @@
         rotated[i] = newRow;
       }
 
-      if (direction === 'up') grid.splice(0, size, ...rotateRight(rotated));
-      if (direction === 'right') grid.splice(0, size, ...rotated.map(row => row.reverse()));
-      if (direction === 'down') grid.splice(0, size, ...rotateLeft(rotated));
+      if (direction === 'up') grid = rotateRight(rotated);
+      if (direction === 'right') grid = rotated.map(row => row.slice().reverse());
+      if (direction === 'down') grid = rotateLeft(rotated);
 
       return moved;
     }
@@ -182,12 +182,10 @@
       }
     });
 
-    // Retry button reloads the page
     document.getElementById("retryButton").addEventListener("click", () => {
-      location.reload();
+      init();
     });
 
-    // Exit button navigates back to game selection
     document.getElementById("exitButton").addEventListener("click", () => {
       window.location.href = "gamepage.html";
     });
