@@ -8,11 +8,13 @@
       font-family: Arial, sans-serif;
       background: #faf8ef;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
     }
+
     #game {
       width: 400px;
       height: 400px;
@@ -23,6 +25,7 @@
       padding: 10px;
       box-shadow: 0 0 10px #333;
     }
+
     .tile {
       background: #cdc1b4;
       font-size: 2rem;
@@ -33,6 +36,7 @@
       font-weight: bold;
       height: 90px;
     }
+
     .tile[data-value="0"] { background: #cdc1b4; color: transparent; }
     .tile[data-value="2"] { background: #eee4da; }
     .tile[data-value="4"] { background: #ede0c8; }
@@ -45,10 +49,34 @@
     .tile[data-value="512"] { background: #edc850; color: white; }
     .tile[data-value="1024"] { background: #edc53f; color: white; }
     .tile[data-value="2048"] { background: #edc22e; color: white; }
+
+    .button-container {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      background-color: #776e65;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #5e5245;
+    }
   </style>
 </head>
 <body>
   <div id="game"></div>
+
+  <div class="button-container">
+    <button id="retryButton">Retry</button>
+    <button id="exitButton">Exit</button>
+  </div>
 
   <script>
     const grid = [];
@@ -152,6 +180,16 @@
         addRandom();
         drawGrid();
       }
+    });
+
+    // Retry button reloads the page
+    document.getElementById("retryButton").addEventListener("click", () => {
+      location.reload();
+    });
+
+    // Exit button navigates back to game selection
+    document.getElementById("exitButton").addEventListener("click", () => {
+      window.location.href = "gamepage.html";
     });
 
     init();
