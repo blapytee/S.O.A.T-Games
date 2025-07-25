@@ -2,88 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Snake Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Skip Login Confirmation</title>
   <style>
     body {
+      background: linear-gradient(to right, #3049ff, #d23fef, #ff6f00);
+      min-height: 100vh;
       margin: 0;
-      background-color: black;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      color: white;
+      text-align: center;
+      padding: 20px;
     }
-    canvas {
-      background: #111;
-      border: 2px solid white;
+
+    .container {
+      background-color: rgba(50, 50, 50, 0.85);
+      padding: 30px 40px;
+      border-radius: 20px;
+      max-width: 400px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #ffb347; /* warm highlight */
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      line-height: 1.4;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-around;
+      gap: 15px;
+    }
+
+    .btn {
+      background-color: #007bff;
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      flex: 1;
+      user-select: none;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .btn.return {
+      background-color: #6c757d;
+    }
+
+    .btn.return:hover {
+      background-color: #565e64;
     }
   </style>
 </head>
 <body>
-  <canvas id="game" width="400" height="400"></canvas>
-  <script>
-    const canvas = document.getElementById("game");
-    const ctx = canvas.getContext("2d");
-
-    const box = 20;
-    let snake = [{ x: 9 * box, y: 10 * box }];
-    let food = {
-      x: Math.floor(Math.random() * 19 + 1) * box,
-      y: Math.floor(Math.random() * 19 + 1) * box
-    };
-    let score = 0;
-    let direction = "RIGHT";
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
-      else if (e.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
-      else if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
-      else if (e.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
-    });
-
-    function draw() {
-      ctx.clearRect(0, 0, 400, 400);
-
-      for (let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = i === 0 ? "lime" : "green";
-        ctx.fillRect(snake[i].x, snake[i].y, box, box);
-      }
-
-      ctx.fillStyle = "red";
-      ctx.fillRect(food.x, food.y, box, box);
-
-      let headX = snake[0].x;
-      let headY = snake[0].y;
-
-      if (direction === "LEFT") headX -= box;
-      if (direction === "UP") headY -= box;
-      if (direction === "RIGHT") headX += box;
-      if (direction === "DOWN") headY += box;
-
-      if (
-        headX < 0 || headX >= 400 || headY < 0 || headY >= 400 ||
-        snake.some(s => s.x === headX && s.y === headY)
-      ) {
-        clearInterval(game);
-        alert("Game Over!");
-        return;
-      }
-
-      let newHead = { x: headX, y: headY };
-
-      if (headX === food.x && headY === food.y) {
-        score++;
-        food = {
-          x: Math.floor(Math.random() * 19 + 1) * box,
-          y: Math.floor(Math.random() * 19 + 1) * box
-        };
-      } else {
-        snake.pop();
-      }
-
-      snake.unshift(newHead);
-    }
-
-    const game = setInterval(draw, 200);
-  </script>
+  <div class="container">
+    <h2>Skip Login?</h2>
+    <h2>Unlock Special Features with S.O.A.T Account</h2>
+    <a href="skipLogin.html" class="button">Skip Login</a>
+    <div class="btn-group">
+      <a href="gamepage.html" class="btn proceed">Proceed</a>
+      <a href="LogIn.html" class="btn return">Return to Login</a>
+    </div>
+  </div>
 </body>
 </html>
