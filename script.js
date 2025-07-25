@@ -33,3 +33,18 @@ document.getElementById('exit-btn').addEventListener('click', function () {
     window.location.href = "gamepage.html";
   }
 });
+// Retry button
+document.getElementById('retry-btn').addEventListener('click', function () {
+  const confirmRetry = confirm("Retry the game?");
+  if (confirmRetry) {
+    window.location.reload(); // reloads the current game page
+  }
+});
+
+// Exit button
+document.getElementById('exit-btn').addEventListener('click', function () {
+  const confirmExit = confirm("Are you sure you want to exit the game?");
+  if (confirmExit) {
+    window.location.href = "gamepage.html"; // go back to game selection
+  }
+});
