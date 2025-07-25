@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Choose Your Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      margin: 30px 0 10px;
+      text-align: center;
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      padding: 40px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .game-card {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .game-card:hover {
+      transform: scale(1.05);
+    }
+
+    .game-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .game-card p {
+      margin: 0;
+      padding: 15px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .back-link {
+      margin-top: auto;
+      margin-bottom: 20px;
+      color: #ffdd00;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Select a Game</h1>
+
+  <div class="game-grid">
+    <div class="game-card" onclick="location.href='snake.html'">
+      <img src="images/snake.png" alt="Snake Game" />
+      <p>Snake</p>
+    </div>
+
+    <div class="game-card" onclick="location.href='tictactoe.html'">
+      <img src="images/tictactoe.png" alt="Tic Tac Toe" />
+      <p>Tic Tac Toe</p>
+    </div>
+
+    <div class="game-card" onclick="location.href='memory.html'">
+      <img src="images/memory.png" alt="Memory Game" />
+      <p>Memory</p>
+    </div>
+
+    <!-- Add more games as needed -->
+  </div>
+
+  <a href="Main.html" class="back-link">← Back to Main</a>
+</body>
+</html>
